@@ -3,9 +3,9 @@
 #include "SkyBox.h"
 #include "TextRendering.h"
 #include "ForShader.h"
-#include "IL\il.h"
-#include "IL\ilu.h"
-#include "IL\ilut.h"
+//#define STB_IMAGE_IMPLEMENTATION
+//#include "stb_image.h"
+#include "FreeImagePlus.h"
 
 Triangle::Triangle()
 {
@@ -185,25 +185,33 @@ void Triangle::playSound()
 
 GLuint Triangle::loadImageToTexture(const char* image_path)
 {
+	fipImage img;
+	img.load("models/man/error.png");
 
-	ILuint ImageName; // The image name to return.
-	ilGenImages(1, &ImageName); // Grab a new image name.
-	ilBindImage(ImageName); // çàãðóçèò ôîòêó â ïðèêðåïëåííóþ èìàãå
-	if (!ilLoadImage((ILstring)image_path)) std::cout << "image NOT load " << std::endl;
-	// we NEED RGB image (for not transparent)
-	//ilConvertImage(IL_RGB, IL_UNSIGNED_BYTE); //Convert image to RGBA with unsigned byte data type
+	std::cout << img.getWidth() << " " << img.getHeight() << std::endl;
+	std::cout << img.isGrayscale() << std::endl;
+	std::cout << img.getBitsPerPixel() << std::endl;
+
+
+	int width = img.getWidth();
+	int height = img.getHeight();
+	int channels = img.getBitsPerPixel();
 
 	GLuint textureID;
-	glGenTextures(1, &textureID); // ñîçäàòü òåêñòóðó
+	glGenTextures(1, &textureID); 
 	glBindTexture(GL_TEXTURE_2D, textureID);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexImage2D(GL_TEXTURE_2D, 0, ilGetInteger(IL_IMAGE_FORMAT), ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT), 0, ilGetInteger(IL_IMAGE_FORMAT), ilGetInteger(IL_IMAGE_TYPE), ilGetData());
+
+	
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, img.accessPixels());
 	glGenerateMipmap(GL_TEXTURE_2D);
 
-	ilDeleteImages(1, &ImageName);
+	//stbi_image_free(data);
+
+
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 	return textureID;

@@ -2,9 +2,6 @@
 #include "InputHandler.h"
 #include "GL\glew.h"
 #include "GL\freeglut.h"
-#include "IL\il.h"
-#include "IL\ilu.h"
-#include "IL\ilut.h"
 #include "SDL\SDL_mixer.h"
 
 #include <iostream>
@@ -31,15 +28,18 @@ void Game::init()
 	assert(2 < 5);
 
 	/*
-	эти значения стоят по умолчанию :
-	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1); - двойной буффер (рисунок делается в закадровом буфере и перемещается на экран)
+	эт?значен? ст??по умолчани?:
+	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1); - двойно?буффер (рисуно?делает? ?закадровом буфере ?перемещает? на экра?
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
-	установить размер компонентов буфера кадра - 8 бит красного, зеленого, синего и альфа:
+	установить размер компоненто?буфера кадр?- 8 би?красного, зеленого, синего ?альф?
 	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
 	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
 	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
 	SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
 	*/
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
+
 
 	// initialize SDL
 	if (SDL_Init(SDL_INIT_EVERYTHING) >= 0)
@@ -53,8 +53,8 @@ void Game::init()
 
 		SDL_DisplayMode dm;
 		SDL_GetDesktopDisplayMode(0, &dm); // if resolution change in SDL, this function will return the previous native display mode !!!
-		screen_width = dm.w;
-		screen_height = dm.h;
+		screen_width = 1024; //dm.w;
+		screen_height = 576; //dm.h;
 		std::cout << dm.w << "    " << dm.h << std::endl;
 
 		window = SDL_CreateWindow("Chapter 1",
@@ -75,21 +75,15 @@ void Game::init()
 		std::cout << "window create error " << std::endl;
 		return; // sdl could not initialize
 	}
-	SDL_SetWindowFullscreen(window, 0); // переключать оконный / полноэкранный режим и обратно без потери контекста GL 
+	SDL_SetWindowFullscreen(window, 0); // переключат?оконны?/ полноэкранны?режи??обратн?бе?потери контекст?GL 
 
-	glewExperimental = GL_TRUE; //все расширения с действительными точками входа будут выставлены.
+	glewExperimental = GL_TRUE; //вс?расширен? ?действительным?точкам?вход?буду?выставлены.
 	if (glewInit())// if all is init return 0 !! if not init return 1 and if() run
 	{
 		std::cout << "glew init error !" << std::endl;
 	}
 
-	ilInit(); // init image load library
-	iluInit();
-	ilutInit();
-	ilutRenderer(ILUT_OPENGL);
-	ilEnable(IL_ORIGIN_SET); 
-	// OpenGL have the 0.0 coordinate on the bottom y-axis, but images usually have 0.0 at the top of the y-axis.
-	ilOriginFunc(IL_ORIGIN_UPPER_LEFT); // 0, 0 textures in upper left side
+	const GLubyte * version = glGetString(GL_VERSION);
 
 										// MIX_DEFAULT_FREQUENCY = sample rate = frequensy = speed playing
 	if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4069) == -1)
@@ -97,11 +91,11 @@ void Game::init()
 	Mix_VolumeMusic(1);
 
 	glViewport(0, 0, screen_width, screen_height); // задать прямоугольник окна
-	glEnable(GL_DEPTH_TEST); // включаем тест глубины
+	glEnable(GL_DEPTH_TEST); // включаем тест глубин?
 
-	//glMatrixMode(GL_PROJECTION); режим текущей матрицы.( GL_MODELVIEW- переходим в трехмерный режим(по умолчанию))
+	//glMatrixMode(GL_PROJECTION); режи?текуще?матриц?( GL_MODELVIEW- переходи??трехмерный режи?по умолчани?)
 	//glLoadIdentity(); // replace the current matrix(modelview ) with the user matrix (GL_PROJECTION)
-	//glOrtho(0.0, 920.0, 900.0, 0.0, -1.0, 1.0);  - типа 2д экран становится
+	//glOrtho(0.0, 920.0, 900.0, 0.0, -1.0, 1.0);  - типа 2?экра?становит?
 	//glMatrixMode(GL_MODELVIEW);
 
 	int buffer;
@@ -124,15 +118,15 @@ void Game::update()
 
 void Game::render()
 {
-	// очистить все возможные буфферы
+	// очистить вс?возможны?буффер?
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
 	triangle.render();
 
 
-	glFlush(); // опустошение буферов, отрисовка предыдущих команд // не ждет завершения
-	//glFinish(); //ждет пока все предыдущие команды не будут отрисованы
-	SDL_GL_SwapWindow(window);//отобразить только что нарисованный кадр на экране.
+	glFlush(); // опустошени?буферо? отрисовк?предыдущих команд // не ждет завершен?
+	//glFinish(); //ждет пока вс?предыдущие команд?не буду?отрисованы
+	SDL_GL_SwapWindow(window);//отобразить только чт?нарисованный кадр на экране.
 	 
 }
 
