@@ -1,5 +1,5 @@
 #include "Game.h"
-#include <SDL\SDL.h>
+#include <SDL/SDL.h>
 #include <iostream>
 #include <string>
 

@@ -1,9 +1,10 @@
-#pragma once
+#ifndef TEXT_RENDERING_H
+#define TEXT_RENDERING_H
 
-#include "GL\glew.h"
-#include "glm\glm.hpp"
-#include "glm\gtc\matrix_transform.hpp"
-#include "glm\gtc\type_ptr.hpp"
+#include "GL/glew.h"
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
 #include <iostream>
 #include <map>
 #include <string>
@@ -41,4 +42,4 @@ private:
 
 	map<GLchar, Character> characters;
 };
-
+#endif

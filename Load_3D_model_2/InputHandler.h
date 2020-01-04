@@ -1,10 +1,12 @@
-#pragma once
+#ifndef INPUT_HANDLER_H
+#define INPUT_HANDLER_H
+
 
 #include "Vector2D.h"
 
 #include <iostream>
 #include <vector>
-#include <SDL\SDL.h>
+#include <SDL/SDL.h>
 
 enum mouse_buttons
 {
@@ -58,7 +60,7 @@ private:
 
 	// keyboard
 	const Uint8* h_keyStates;
-
-
 };
+
+#endif // INPUT_HANDLER_H
 

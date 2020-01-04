@@ -1,7 +1,7 @@
-#pragma once
-
-#include "GL\glew.h"
-#include "SDL\SDL_opengl.h"
+#ifndef FOR_SHADER_H
+#define FOR_SHADER_H
+#include "GL/glew.h"
+#include "SDL/SDL_opengl.h"
 
 #include <iostream>
 
@@ -15,4 +15,5 @@ public:
 
 	static GLuint makeProgram(const char* vertex, const char* fragment);
 };
+#endif // !FOR_SHADER_H
 

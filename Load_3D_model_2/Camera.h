@@ -1,8 +1,9 @@
-#pragma once
+#ifndef CAMERA_H
+#define CAMERA_H
 
-#include "GL\glew.h"
-#include "glm\glm.hpp"
-#include "glm\gtc\matrix_transform.hpp"
+#include "GL/glew.h"
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
 #include "InputHandler.h"
 #include "Vector2D.h"
 
@@ -111,3 +112,4 @@ private:
 		camera_up = glm::normalize(glm::cross(camera_right, camera_front));
 	}
 };
+#endif

@@ -1,6 +1,7 @@
-#pragma once
+#ifndef TRIANGLE_H
+#define TRIANGLE_H
 
-#include "GL\glew.h"
+#include "GL/glew.h"
 #include <iostream>
 #include "Camera.h"
 #include "Model.h"
@@ -9,7 +10,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "SDL\SDL_mixer.h"
+#include "SDL/SDL_mixer.h"
 
 class Triangle
 {
@@ -55,4 +56,6 @@ public:
 	static GLuint loadImageToTexture(const char* image_path);
 
 };
+
+#endif // !TRIANGLE_H
 

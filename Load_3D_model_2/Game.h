@@ -1,7 +1,8 @@
-#pragma once
+#ifndef GAME_H
+#define GAME_H
 
 #include "Triangle.h"
-#include <SDL\SDL.h>
+#include <SDL/SDL.h>
 
 #include <vector>
 
@@ -41,4 +42,5 @@ private:
 	bool running;
 
 };
+#endif // !GAME_H
 

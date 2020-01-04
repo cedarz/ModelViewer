@@ -1,8 +1,8 @@
 #include "Game.h"
 #include "InputHandler.h"
-#include "GL\glew.h"
-#include "GL\freeglut.h"
-#include "SDL\SDL_mixer.h"
+#include "GL/glew.h"
+#include "GL/freeglut.h"
+#include "SDL/SDL_mixer.h"
 
 #include <iostream>
 #include <assert.h>

@@ -1,7 +1,7 @@
-#pragma once
+#ifndef VECTOR_2D_H
+#define VECTOR_2D_H
 
-
-#include <math.h>
+#include <cmath>
 
 class Vector2D
 {
@@ -82,3 +82,5 @@ private:
 	float m_y;
 
 };
+
+#endif

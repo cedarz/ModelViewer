@@ -1,10 +1,11 @@
-#pragma once
+#ifndef MESH_H
+#define MESH_H
 
 #include <iostream>
 
-#include "GL\glew.h"
-#include "glm\glm.hpp"
-#include "assimp\Importer.hpp"
+#include "GL/glew.h"
+#include "glm/glm.hpp"
+#include "assimp/Importer.hpp"
 
 #include <vector>
 #include <string>
@@ -75,3 +76,5 @@ private:
 	//inititalize buffers
 	void SetupMesh();
 };
+
+#endif

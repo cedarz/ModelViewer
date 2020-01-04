@@ -1,18 +1,19 @@
-#pragma once
+#ifndef MODEL_H
+#define MODEL_H
 
-#include "GL\glew.h"
+#include "GL/glew.h"
 #include "Mesh.h"
 #include <vector>
 #include <string>
 #include <map>
-#include "glm\gtc\quaternion.hpp"
+#include "glm/gtc/quaternion.hpp"
 
 
-#include "assimp\Importer.hpp"
-#include "assimp\scene.h"
-#include "assimp\postprocess.h"
+#include "assimp/Importer.hpp"
+#include "assimp/scene.h"
+#include "assimp/postprocess.h"
 
-#include "SDL\SDL_mixer.h"
+#include "SDL/SDL_mixer.h"
 
 using namespace std;
 
@@ -70,3 +71,4 @@ private:
 
 };
 
+#endif // !MODEL_H
