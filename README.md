@@ -1,3 +1,5 @@
+imported from [assimp-Cpp-OpenGL-skeletal-animation](https://github.com/vovan4ik123/assimp-Cpp-OpenGL-skeletal-animation)
+
 # assimp-Cpp-OpenGL-skeletal-animation
 assimp C++ OpenGL skeletal animation visual studio 2015 project
 
