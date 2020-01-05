@@ -181,7 +181,8 @@ void Scene::playSound()
 GLuint Scene::loadImageToTexture(const char* image_path)
 {
 	fipImage img;
-	img.load("models/man/error.png");
+	img.load(image_path);
+	img.convertTo32Bits();
 
 	std::cout << img.getWidth() << " " << img.getHeight() << std::endl;
 	std::cout << img.isGrayscale() << std::endl;
@@ -203,9 +204,6 @@ GLuint Scene::loadImageToTexture(const char* image_path)
 	
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, img.accessPixels());
 	glGenerateMipmap(GL_TEXTURE_2D);
-
-	//stbi_image_free(data);
-
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 

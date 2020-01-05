@@ -33,7 +33,7 @@ public:
 	aiQuaternion nlerp(aiQuaternion a, aiQuaternion b, float blend); // super super n lerp =)
 
 private:
-	Assimp::Importer importer;
+	Assimp::Importer importer_;
 	const aiScene* scene;
 	std::vector<Mesh> meshes; // one mesh in one object
 	std::string directory;

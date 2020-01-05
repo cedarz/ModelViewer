@@ -13,7 +13,7 @@ Model::Model() {
 
 Model::~Model()
 {
-	importer.FreeScene();
+	importer_.FreeScene();
 }
 
 void Model::initShaders(GLuint shader_program)
@@ -89,11 +89,11 @@ void Model::loadModel(const std::string& path)
 
 	// result: a specific transformation will affect a particular vertex with a certain force.
 
-	scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+	scene = importer_.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
 
 	if (!scene || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{
-		std::cout << "error assimp : " << importer.GetErrorString() << std::endl;
+		std::cout << "error assimp : " << importer_.GetErrorString() << std::endl;
 		return;
 	}
 	m_global_inverse_transform = scene->mRootNode->mTransformation;
