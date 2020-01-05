@@ -28,15 +28,14 @@ void Game::init()
 	assert(2 < 5);
 
 	/*
-	эт?значен? ст??по умолчани?:
-	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1); - двойно?буффер (рисуно?делает? ?закадровом буфере ?перемещает? на экра?
+	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1); 
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
-	установить размер компоненто?буфера кадр?- 8 би?красного, зеленого, синего ?альф?
 	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
 	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
 	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
 	SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
 	*/
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
 
@@ -57,7 +56,7 @@ void Game::init()
 		screen_height = 576; //dm.h;
 		std::cout << dm.w << "    " << dm.h << std::endl;
 
-		window = SDL_CreateWindow("Chapter 1",
+		window = SDL_CreateWindow("Zero",
 			SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
 			screen_width, screen_height,
 			SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | 0);
