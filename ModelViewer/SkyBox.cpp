@@ -128,9 +128,7 @@ void SkyBox::update(glm::mat4 VP_matr)
 	VP_matrix = VP_matr;
 }
 
-void SkyBox::draw()
-{
-
+void SkyBox::draw() {
 	// draw skybox LAST in scene ( optimization in vertex shader )
 	glDepthFunc(GL_LEQUAL); // optimization in shaders
 	glUseProgram(skybox_shaders);

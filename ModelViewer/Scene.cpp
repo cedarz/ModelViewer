@@ -1,4 +1,4 @@
-#include "Triangle.h"
+#include "Scene.h"
 #include "Game.h"
 #include "SkyBox.h"
 #include "TextRendering.h"
@@ -7,7 +7,7 @@
 //#include "stb_image.h"
 #include "FreeImagePlus.h"
 
-Triangle::Triangle()
+Scene::Scene()
 {
 	cout << "triangle construktor()" << endl;
 
@@ -18,14 +18,14 @@ Triangle::Triangle()
 }
 
 
-Triangle::~Triangle()
+Scene::~Scene()
 {
 	glDeleteProgram(shaders_animated_model);
 	Mix_FreeMusic(music1);
 }
 
 
-void Triangle::init()
+void Scene::init()
 {
 
 	// shader for animated model
@@ -56,7 +56,7 @@ void Triangle::init()
 	//music2 = Mix_LoadMUS("music/02_modern_talking_you_can_win_if_you_want.mp3");
 }
 
-void Triangle::update()
+void Scene::update()
 {
 	GLfloat current_frame = SDL_GetTicks();
 	delta_time = (current_frame - last_frame);
@@ -117,9 +117,7 @@ void Triangle::update()
 	SkyBox::Instance()->update(perspective_projection * glm::mat4(glm::mat3(perspective_view)));
 }
 
-void Triangle::render()
-{
-
+void Scene::render() {
 	glUseProgram(shaders_animated_model);
 
 	glUniform3f(glGetUniformLocation(shaders_animated_model, "view_pos"), camera.camera_pos.x, camera.camera_pos.y, camera.camera_pos.z);
@@ -175,7 +173,7 @@ void Triangle::render()
 	
 }
 
-void Triangle::playSound()
+void Scene::playSound()
 {
 	if (Mix_PlayingMusic() == 0) //if first song end and play nothing 
 		Mix_PlayMusic(music2, 1); // play two time( loop = 1) )
@@ -183,7 +181,7 @@ void Triangle::playSound()
 	model_man.playSound();
 }
 
-GLuint Triangle::loadImageToTexture(const char* image_path)
+GLuint Scene::loadImageToTexture(const char* image_path)
 {
 	fipImage img;
 	img.load("models/man/error.png");

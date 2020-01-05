@@ -1,5 +1,5 @@
 #include "Model.h"
-#include "Triangle.h"
+#include "Scene.h"
 #include "InputHandler.h"
 
 #include <glm/glm.hpp>
@@ -299,7 +299,7 @@ vector<Texture> Model::LoadMaterialTexture(aiMaterial* mat, aiTextureType type, 
 		//cout << filename << endl;
 
 		Texture texture;
-		texture.id = Triangle::loadImageToTexture(filename.c_str()); // return prepaired openGL texture
+		texture.id = Scene::loadImageToTexture(filename.c_str()); // return prepaired openGL texture
 		texture.type = type_name;
 		texture.path = ai_str;
 		textures.push_back(texture);

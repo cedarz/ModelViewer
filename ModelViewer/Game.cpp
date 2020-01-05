@@ -84,7 +84,7 @@ void Game::init() {
 	SDL_GL_GetAttribute(SDL_GL_DOUBLEBUFFER, &buffer);
 	printf("SDL_GL_DOUBLEBUFFER: %d \n", buffer);
 
-	triangle.init();
+	scene.init();
 }
 
 void Game::handleEvents()
@@ -94,14 +94,14 @@ void Game::handleEvents()
 
 void Game::update()
 {
-	triangle.update();
+	scene.update();
 }
 
 void Game::render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-	triangle.render();
+	scene.render();
 
 	glFlush();
 	//glFinish(); 
@@ -110,7 +110,7 @@ void Game::render()
 
 void Game::playSound()
 {
-	triangle.playSound();
+	scene.playSound();
 }
 
 void Game::clean()

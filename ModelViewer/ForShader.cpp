@@ -45,17 +45,14 @@ GLuint ForShader::makeProgram(const char* vertex, const char* fragment)
 {
 	const char* vertexShaderCode = readShader(vertex); 
 	const char* fragmentShaderCode = readShader(fragment);
-	std::cout << vertexShaderCode << std::endl;
-	std::cout << fragmentShaderCode << std::endl;
+	//std::cout << vertexShaderCode << std::endl;
+	//std::cout << fragmentShaderCode << std::endl;
 
 	GLuint vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
 	GLuint fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
 
-	//const char* adapter[1];
-	//adapter[0] = vertexShaderCode;
 	glShaderSource(vertexShaderID, 1, &vertexShaderCode, 0);
 	delete[] vertexShaderCode;
-	//adapter[0] = fragmentShaderCode;
 	glShaderSource(fragmentShaderID, 1, &fragmentShaderCode, 0);
 	delete[] fragmentShaderCode;
 
@@ -110,9 +107,7 @@ GLuint ForShader::makeProgram(const char* vertex, const char* fragment)
 	}
 #endif // DEBUG
 
-	//glDetachShader(programID, vertexShaderID);   // removes shader from program
 	glDeleteShader(vertexShaderID);				 // delete
-	//glDetachShader(programID, fragmentShaderID); // removes shader from program
 	glDeleteShader(fragmentShaderID);			 // delete
 
 	return programID;

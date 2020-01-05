@@ -1,6 +1,6 @@
 #ifndef GAME_H
 #define GAME_H
-#include "Triangle.h"
+#include "Scene.h"
 #include <SDL/SDL.h>
 #include <vector>
 
@@ -33,7 +33,7 @@ private:
 	SDL_Window* window = 0;
 	SDL_GLContext glcontext = 0;
 
-	Triangle triangle;
+	Scene scene;
 	bool running;
 };
 #endif // !GAME_H

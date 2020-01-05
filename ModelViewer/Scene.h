@@ -1,5 +1,5 @@
-#ifndef TRIANGLE_H
-#define TRIANGLE_H
+#ifndef SCENE_H
+#define SCENE_H
 
 //#include "GL/glew.h"
 #include <glad/glad.h>
@@ -13,11 +13,11 @@
 
 #include "SDL/SDL_mixer.h"
 
-class Triangle
+class Scene
 {
 public:
-	Triangle();
-	~Triangle();
+	Scene();
+	~Scene();
 
 	GLfloat speed = 0.02f;
 	//for camera
