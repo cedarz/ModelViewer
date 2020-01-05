@@ -156,13 +156,13 @@ GLuint SkyBox::createCubeTexture(char* folder)
 	glGenTextures(1, &text_id);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, text_id);
 
-	std::vector<string> image_path; // same name single textures must be in folder
-	image_path.push_back(string(folder) + string("/right.jpg"));
-	image_path.push_back(string(folder) + string("/left.jpg"));
-	image_path.push_back(string(folder) + string("/top.jpg"));
-	image_path.push_back(string(folder) + string("/bottom.jpg"));
-	image_path.push_back(string(folder) + string("/front.jpg"));
-	image_path.push_back(string(folder) + string("/back.jpg"));
+	std::vector<std::string> image_path; // same name single textures must be in folder
+	image_path.push_back(std::string(folder) + std::string("/right.jpg"));
+	image_path.push_back(std::string(folder) + std::string("/left.jpg"));
+	image_path.push_back(std::string(folder) + std::string("/top.jpg"));
+	image_path.push_back(std::string(folder) + std::string("/bottom.jpg"));
+	image_path.push_back(std::string(folder) + std::string("/front.jpg"));
+	image_path.push_back(std::string(folder) + std::string("/back.jpg"));
 
 
 	int width = 0;

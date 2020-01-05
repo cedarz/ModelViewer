@@ -1,7 +1,7 @@
 #include "Mesh.h"
 
 
-Mesh::Mesh(vector<Vertex> vertic, vector<GLuint> ind, vector<Texture> textur, vector<VertexBoneData> bone_id_weights)
+Mesh::Mesh(std::vector<Vertex> vertic, std::vector<GLuint> ind, std::vector<Texture> textur, std::vector<VertexBoneData> bone_id_weights)
 {
 	vertices = vertic;
 	indices = ind;
@@ -45,15 +45,15 @@ void Mesh::Draw(GLuint shaders_program)
 	{
 		glActiveTexture(GL_TEXTURE0 + i);
 		
-		string number;
-		string name = textures[i].type;
+		std::string number;
+		std::string name = textures[i].type;
 		if (name == "texture_diffuse")
 		{
-			number = to_string(diffuse_nr++);
+			number = std::to_string(diffuse_nr++);
 		}
 		else if (name == "texture_specular")
 		{
-			number = to_string(specular_nr++);
+			number = std::to_string(specular_nr++);
 		}
 
 		glBindTexture(GL_TEXTURE_2D, textures[i].id);

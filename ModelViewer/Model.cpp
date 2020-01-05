@@ -5,23 +5,22 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <iostream>
 
-Model::Model()
-{
+Model::Model() {
 	scene = nullptr;
 }
 
-
 Model::~Model()
 {
-	import.FreeScene();
+	importer.FreeScene();
 }
 
 void Model::initShaders(GLuint shader_program)
 {
 	for (uint i = 0; i < MAX_BONES; i++) // get location all matrices of bones
 	{
-		string name = "bones[" + to_string(i) + "]";// name like in shader
+		std::string name = "bones[" + std::to_string(i) + "]";// name like in shader
 		m_bone_location[i] = glGetUniformLocation(shader_program, name.c_str());
 	}
 
@@ -56,7 +55,7 @@ void Model::update()
 
 void Model::draw(GLuint shaders_program)
 {
-	vector<aiMatrix4x4> transforms;
+	std::vector<aiMatrix4x4> transforms;
 	boneTransform((double) SDL_GetTicks() / 1000.0f, transforms);
 
 	for (uint i = 0; i < transforms.size(); i++) // move all matrices for actual model position to shader
@@ -75,7 +74,7 @@ void Model::playSound()
 
 }
 
-void Model::loadModel(const string& path)
+void Model::loadModel(const std::string& path)
 {
 	// how work skeletal animation in assimp //translated with google =) :
 	// node is a separate part of the loaded model (the model is not only a character)
@@ -90,11 +89,11 @@ void Model::loadModel(const string& path)
 
 	// result: a specific transformation will affect a particular vertex with a certain force.
 
-	scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+	scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
 
 	if (!scene || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{
-		cout << "error assimp : " << import.GetErrorString() << endl;
+		std::cout << "error assimp : " << importer.GetErrorString() << std::endl;
 		return;
 	}
 	m_global_inverse_transform = scene->mRootNode->mTransformation;
@@ -112,30 +111,29 @@ void Model::loadModel(const string& path)
 	// directoru = container for model.obj and textures and other files
 	directory = path.substr(0, path.find_last_of('/'));
 
-	cout << "scene->HasAnimations() 1: " << scene->HasAnimations() << endl;
-	cout << "scene->mNumMeshes 1: " << scene->mNumMeshes << endl;
-	cout << "scene->mAnimations[0]->mNumChannels 1: " << scene->mAnimations[0]->mNumChannels << endl;
-	cout << "scene->mAnimations[0]->mDuration 1: " << scene->mAnimations[0]->mDuration << endl;
-	cout << "scene->mAnimations[0]->mTicksPerSecond 1: " << scene->mAnimations[0]->mTicksPerSecond << endl << endl;
+	std::cout << "scene->HasAnimations() 1: " << scene->HasAnimations() << std::endl;
+	std::cout << "scene->mNumMeshes 1: " << scene->mNumMeshes << std::endl;
+	std::cout << "scene->mAnimations[0]->mNumChannels 1: " << scene->mAnimations[0]->mNumChannels << std::endl;
+	std::cout << "scene->mAnimations[0]->mDuration 1: " << scene->mAnimations[0]->mDuration << std::endl;
+	std::cout << "scene->mAnimations[0]->mTicksPerSecond 1: " << scene->mAnimations[0]->mTicksPerSecond << std::endl;
 
-	cout << "		name nodes : " << endl;
+	std::cout << "		name nodes : " << std::endl;
 	showNodeName(scene->mRootNode);
-	cout << endl;
+	std::cout << std::endl;
 
-	cout << "		name bones : " << endl;
+	std::cout << "		name bones : " << std::endl;
 	processNode(scene->mRootNode, scene);
 
-	cout << "		name nodes animation : " << endl;
+	std::cout << "		name nodes animation : " << std::endl;
 	for (uint i = 0; i < scene->mAnimations[0]->mNumChannels; i++)
 	{
-		cout<< scene->mAnimations[0]->mChannels[i]->mNodeName.C_Str() << endl;
+		std::cout<< scene->mAnimations[0]->mChannels[i]->mNodeName.C_Str() << std::endl;
 	}
-	cout << endl;
 }
 
 void Model::showNodeName(aiNode* node)
 {
-	cout << node->mName.data << endl;
+	std::cout << node->mName.data << std::endl;
 	for (uint i = 0; i < node->mNumChildren; i++)
 	{
 		showNodeName(node->mChildren[i]);
@@ -158,10 +156,10 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 {
 	std::cout << "bones: " << mesh->mNumBones << " vertices: " << mesh->mNumVertices << std::endl;
 
-	vector<Vertex> vertices;
-	vector<GLuint> indices;
-	vector<Texture> textures;
-	vector<VertexBoneData> bones_id_weights_for_each_vertex;
+	std::vector<Vertex> vertices;
+	std::vector<GLuint> indices;
+	std::vector<Texture> textures;
+	std::vector<VertexBoneData> bones_id_weights_for_each_vertex;
 
 	vertices.reserve(mesh->mNumVertices); 
 	indices.reserve(mesh->mNumVertices); 
@@ -221,7 +219,7 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 	{
 		//all pointers created in assimp will be deleted automaticaly when we call import.FreeScene();
 		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-		vector<Texture> diffuse_maps = LoadMaterialTexture(material, aiTextureType_DIFFUSE, "texture_diffuse");
+		std::vector<Texture> diffuse_maps = LoadMaterialTexture(material, aiTextureType_DIFFUSE, "texture_diffuse");
 		bool exist = false;
 		for (int i = 0; (i < textures.size()) && (diffuse_maps.size() != 0); i++)
 		{
@@ -233,7 +231,7 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 		if(!exist && diffuse_maps.size() != 0) textures.push_back(diffuse_maps[0]);
 		//textures.insert(textures.end(), diffuse_maps.begin(), diffuse_maps.end());
 
-		vector<Texture> specular_maps = LoadMaterialTexture(material, aiTextureType_SPECULAR, "texture_specular");
+		std::vector<Texture> specular_maps = LoadMaterialTexture(material, aiTextureType_SPECULAR, "texture_specular");
 		exist = false;
 		for (int i = 0; (i < textures.size()) && (specular_maps.size() != 0); i++)
 		{
@@ -251,9 +249,9 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 	for (uint i = 0; i < mesh->mNumBones; i++)
 	{
 		uint bone_index = 0;
-		string bone_name(mesh->mBones[i]->mName.data);
+		std::string bone_name(mesh->mBones[i]->mName.data);
 
-		cout << mesh->mBones[i]->mName.data << endl;
+		std::cout << mesh->mBones[i]->mName.data << std::endl;
 
 		if (m_bone_mapping.find(bone_name) == m_bone_mapping.end())
 		{
@@ -285,15 +283,15 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 	return Mesh(vertices, indices, textures, bones_id_weights_for_each_vertex);
 }
 
-vector<Texture> Model::LoadMaterialTexture(aiMaterial* mat, aiTextureType type, string type_name)
+std::vector<Texture> Model::LoadMaterialTexture(aiMaterial* mat, aiTextureType type, std::string type_name)
 {
-	vector<Texture> textures;
+	std::vector<Texture> textures;
 	for (uint i = 0; i < mat->GetTextureCount(type); i++)
 	{
 		aiString ai_str;
 		mat->GetTexture(type, i, &ai_str);
 
-		string filename = string(ai_str.C_Str());
+		std::string filename = std::string(ai_str.C_Str());
 		filename = directory + '/' + filename;
 
 		//cout << filename << endl;
@@ -422,14 +420,14 @@ aiVector3D Model::calcInterpolatedScaling(float p_animation_time, const aiNodeAn
 	return start + factor * delta;
 }
 
-const aiNodeAnim * Model::findNodeAnim(const aiAnimation * p_animation, const string p_node_name)
+const aiNodeAnim * Model::findNodeAnim(const aiAnimation * p_animation, const std::string p_node_name)
 {
 	// channel in animation contains aiNodeAnim (aiNodeAnim its transformation for bones)
 	// numChannels == numBones
 	for (uint i = 0; i < p_animation->mNumChannels; i++)
 	{
 		const aiNodeAnim* node_anim = p_animation->mChannels[i]; 
-		if (string(node_anim->mNodeName.data) == p_node_name)
+		if (std::string(node_anim->mNodeName.data) == p_node_name)
 		{
 			return node_anim;
 		}
@@ -441,7 +439,7 @@ const aiNodeAnim * Model::findNodeAnim(const aiAnimation * p_animation, const st
 void Model::readNodeHierarchy(float p_animation_time, const aiNode* p_node, const aiMatrix4x4 parent_transform)
 {
 
-	string node_name(p_node->mName.data);
+	std::string node_name(p_node->mName.data);
 
 
 	const aiAnimation* animation = scene->mAnimations[0];
@@ -469,7 +467,7 @@ void Model::readNodeHierarchy(float p_animation_time, const aiNode* p_node, cons
 		aiMatrix4x4 translate_matr;
 		aiMatrix4x4::Translation(translate_vector, translate_matr);
 
-		if ( string(node_anim->mNodeName.data) == string("Head"))
+		if (std::string(node_anim->mNodeName.data) == std::string("Head"))
 		{
 			aiQuaternion rotate_head = aiQuaternion(rotate_head_xz.w, rotate_head_xz.x, rotate_head_xz.y, rotate_head_xz.z);
 
@@ -497,7 +495,7 @@ void Model::readNodeHierarchy(float p_animation_time, const aiNode* p_node, cons
 
 }
 
-void Model::boneTransform(double time_in_sec, vector<aiMatrix4x4>& transforms)
+void Model::boneTransform(double time_in_sec, std::vector<aiMatrix4x4>& transforms)
 {
 	aiMatrix4x4 identity_matrix; // = mat4(1.0f);
 

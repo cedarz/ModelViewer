@@ -12,8 +12,6 @@
 #include "ft2build.h"
 #include FT_FREETYPE_H
 
-using namespace std;
-
 struct Character
 {
 	GLuint texture_id;  // glyph texture
@@ -31,7 +29,7 @@ public:
 		return &inst;
 	}
 
-	void draw(string text, glm::vec3 color, glm::mat4 matrix);
+	void draw(std::string text, glm::vec3 color, glm::mat4 matrix);
 
 private:
 	TextRendering();
@@ -40,6 +38,6 @@ private:
 	GLuint VAO, VBO;
 	GLuint shaders_text;
 
-	map<GLchar, Character> characters;
+	std::map<GLchar, Character> characters;
 };
 #endif

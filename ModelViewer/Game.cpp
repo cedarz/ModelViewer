@@ -49,7 +49,7 @@ void Game::init() {
 			screen_width, screen_height,
 			SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | 0);
 
-		//SDL_SetWindowOpacity(window, 0.0f); // make window transparent ( prozra4noe )
+		//SDL_SetWindowOpacity(window, 0.8f); // make window transparent ( prozra4noe )
 
 		if (window != 0)
 		{
@@ -73,8 +73,9 @@ void Game::init() {
 	const GLubyte * version = glGetString(GL_VERSION);
 
 										// MIX_DEFAULT_FREQUENCY = sample rate = frequensy = speed playing
-	if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4069) == -1)
-		cout << "Mixer NOT init !!" << endl;
+	if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4069) == -1) {
+		std::cout << "Mixer NOT init !!" << std::endl;
+	}
 	Mix_VolumeMusic(1);
 
 	glViewport(0, 0, screen_width, screen_height);
@@ -97,14 +98,10 @@ void Game::update()
 	scene.update();
 }
 
-void Game::render()
-{
+void Game::render() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-
 	scene.render();
-
-	glFlush();
-	//glFinish(); 
+	//glFlush();
 	SDL_GL_SwapWindow(window);
 }
 

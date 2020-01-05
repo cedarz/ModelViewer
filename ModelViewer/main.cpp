@@ -26,8 +26,7 @@ int main(int argc, char* argv[])
 		frameTime = SDL_GetTicks() - frameStart; // time for full 1 loop
 		//std::cout <<"frame time = " << frameTime << " milli sec"<< std::endl;
 
-		if (frameTime < LOOP_TIME)
-		{
+		if (frameTime < LOOP_TIME) {
 			SDL_Delay((int)(LOOP_TIME - frameTime));
 		}
 

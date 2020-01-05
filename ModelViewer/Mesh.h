@@ -10,8 +10,6 @@
 #include <vector>
 #include <string>
 
-
-using namespace std;
 typedef unsigned int uint;
 #define NUM_BONES_PER_VEREX 4
 
@@ -25,7 +23,7 @@ struct Vertex
 struct Texture
 {
 	GLuint id;
-	string type;
+	std::string type;
 	aiString path;
 };
 
@@ -53,7 +51,7 @@ struct VertexBoneData
 class Mesh
 {
 public:
-	Mesh(vector<Vertex> vertic, vector<GLuint> ind, vector<Texture> textur, vector<VertexBoneData> bone_id_weights);
+	Mesh(std::vector<Vertex> vertic, std::vector<GLuint> ind, std::vector<Texture> textur, std::vector<VertexBoneData> bone_id_weights);
 	Mesh() {};
 	~Mesh();
 
@@ -62,10 +60,10 @@ public:
 
 private:
 	//Mesh data
-	vector<Vertex> vertices;
-	vector<GLuint> indices;
-	vector<Texture> textures;
-	vector<VertexBoneData> bones_id_weights_for_each_vertex;
+	std::vector<Vertex> vertices;
+	std::vector<GLuint> indices;
+	std::vector<Texture> textures;
+	std::vector<VertexBoneData> bones_id_weights_for_each_vertex;
 
 	//buffers
 	GLuint VAO;

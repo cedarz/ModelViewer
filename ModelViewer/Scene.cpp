@@ -3,13 +3,11 @@
 #include "SkyBox.h"
 #include "TextRendering.h"
 #include "ForShader.h"
-//#define STB_IMAGE_IMPLEMENTATION
-//#include "stb_image.h"
 #include "FreeImagePlus.h"
 
 Scene::Scene()
 {
-	cout << "triangle construktor()" << endl;
+	std::cout << "triangle construktor()" << std::endl;
 
 	glm::vec3 position(2.0f, 5.0f, 18.0f);
 	camera = Camera(position);
@@ -25,14 +23,13 @@ Scene::~Scene()
 }
 
 
-void Scene::init()
-{
-
+void Scene::init() {
 	// shader for animated model
 	shaders_animated_model = ForShader::makeProgram("shaders/animated_model.vert", "shaders/animated_model.frag");
 
-	model_man.initShaders(shaders_animated_model);
 	model_man.loadModel("models/man/model.dae");
+	model_man.initShaders(shaders_animated_model);
+
 	//matr_model = glm::scale(matr_model, glm::vec3(0.1f, 0.1f, 0.1f));
 	matr_model_1 = glm::rotate(matr_model_1, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 
