@@ -1,12 +1,9 @@
 #ifndef MESH_H
 #define MESH_H
-
-#include <iostream>
-
 #include <glad/glad.h>
-#include "glm/glm.hpp"
-#include "assimp/Importer.hpp"
-
+#include <glm/glm.hpp>
+#include <assimp/Importer.hpp>
+#include <iostream>
 #include <vector>
 #include <string>
 

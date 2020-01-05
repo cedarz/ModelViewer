@@ -1,6 +1,6 @@
 #include "Game.h"
 #include "InputHandler.h"
-#include "SDL/SDL_mixer.h"
+#include <SDL/SDL_mixer.h>
 #include <glad/glad.h>
 
 #include <iostream>

@@ -1,10 +1,9 @@
 #ifndef SKY_BOX_H
 #define SKY_BOX_H
-
-#include <glad/glad.h>
-#include "glm/glm.hpp"
-#include "glm/gtc/type_ptr.hpp"
 #include "Camera.h"
+#include <glad/glad.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 class SkyBox
 {
