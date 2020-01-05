@@ -1,6 +1,6 @@
 #ifndef FOR_SHADER_H
 #define FOR_SHADER_H
-#include "GL/glew.h"
+#include <glad/glad.h>
 #include "SDL/SDL_opengl.h"
 
 #include <iostream>

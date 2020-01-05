@@ -1,7 +1,7 @@
 #ifndef TEXT_RENDERING_H
 #define TEXT_RENDERING_H
 
-#include "GL/glew.h"
+#include <glad/glad.h>
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"

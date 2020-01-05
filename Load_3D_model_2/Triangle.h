@@ -1,7 +1,8 @@
 #ifndef TRIANGLE_H
 #define TRIANGLE_H
 
-#include "GL/glew.h"
+//#include "GL/glew.h"
+#include <glad/glad.h>
 #include <iostream>
 #include "Camera.h"
 #include "Model.h"
@@ -52,7 +53,6 @@ public:
 	void render();
 	void playSound();
 
-	static GLuint loadDDS(const char* image_path, int* w = nullptr, int* h = nullptr);
 	static GLuint loadImageToTexture(const char* image_path);
 
 };

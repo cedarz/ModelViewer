@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-#include "GL/glew.h"
+#include <glad/glad.h>
 #include "glm/glm.hpp"
 #include "assimp/Importer.hpp"
 

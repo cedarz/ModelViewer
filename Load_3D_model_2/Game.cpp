@@ -1,8 +1,9 @@
 #include "Game.h"
 #include "InputHandler.h"
-#include "GL/glew.h"
-#include "GL/freeglut.h"
+//#include "GL/glew.h"
+//#include "GL/freeglut.h"
 #include "SDL/SDL_mixer.h"
+#include <glad/glad.h>
 
 #include <iostream>
 #include <assert.h>
@@ -76,11 +77,16 @@ void Game::init()
 	}
 	SDL_SetWindowFullscreen(window, 0); // переключат?оконны?/ полноэкранны?режи??обратн?бе?потери контекст?GL 
 
-	glewExperimental = GL_TRUE; //вс?расширен? ?действительным?точкам?вход?буду?выставлены.
-	if (glewInit())// if all is init return 0 !! if not init return 1 and if() run
-	{
-		std::cout << "glew init error !" << std::endl;
+	//glewExperimental = GL_TRUE; //вс?расширен? ?действительным?точкам?вход?буду?выставлены.
+	//if (glewInit())// if all is init return 0 !! if not init return 1 and if() run
+	//{
+	//	std::cout << "glew init error !" << std::endl;
+	//}
+	if (!gladLoadGL()) {
+		printf("Something went wrong!\n");
+		exit(-1);
 	}
+	printf("OpenGL %d.%d\n", GLVersion.major, GLVersion.minor);
 
 	const GLubyte * version = glGetString(GL_VERSION);
 
