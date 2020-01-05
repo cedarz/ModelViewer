@@ -1,7 +1,6 @@
 #ifndef INPUT_HANDLER_H
 #define INPUT_HANDLER_H
-
-#include "Vector2D.h"
+#include <glm/glm.hpp>
 #include <iostream>
 #include <vector>
 #include <SDL/SDL.h>
@@ -34,7 +33,7 @@ public:
 		return m_mouseButtonState[buttonNumber];
 	}
 
-	Vector2D getMousePosition()
+	glm::vec2 getMousePosition()
 	{
 		return m_mousePosition;
 	}
@@ -49,7 +48,7 @@ private:
 	InputHandler();
 
 	std::vector<bool> m_mouseButtonState;
-	Vector2D m_mousePosition;
+	glm::vec2 m_mousePosition;
 
 	// handle mouse events
 	void onMouseMove(SDL_Event& event);

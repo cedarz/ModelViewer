@@ -1,7 +1,5 @@
 #ifndef SCENE_H
 #define SCENE_H
-
-//#include "GL/glew.h"
 #include <glad/glad.h>
 #include <iostream>
 #include "Camera.h"
@@ -25,7 +23,7 @@ public:
 	GLfloat last_frame = 0.0f;
 	GLfloat last_x;
 	GLfloat last_y;
-	Vector2D mouse_position;
+	glm::vec2 mouse_position;
 	GLboolean mouse_first_in;
 	Camera camera;
 

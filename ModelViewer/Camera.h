@@ -5,7 +5,6 @@
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "InputHandler.h"
-#include "Vector2D.h"
 
 // Default camera values
 const GLfloat YAW = -90.0f;

@@ -47,11 +47,9 @@ void InputHandler::updateEvent()
 	}
 }
 
-void InputHandler::onMouseMove(SDL_Event& event)
-{
-	m_mousePosition.setX(event.motion.x);
-	m_mousePosition.setY(event.motion.y);
-
+void InputHandler::onMouseMove(SDL_Event& event) {
+	m_mousePosition.x = event.motion.x;
+	m_mousePosition.y = event.motion.y;
 }
 
 void InputHandler::onMouseButtonDown(SDL_Event& event)

@@ -1,7 +1,5 @@
 #include "Game.h"
 #include "InputHandler.h"
-//#include "GL/glew.h"
-//#include "GL/freeglut.h"
 #include "SDL/SDL_mixer.h"
 #include <glad/glad.h>
 

@@ -69,15 +69,15 @@ void Scene::update()
 
 		if (mouse_first_in) // need run ONLY if mouse on window !!!
 		{
-			last_x = mouse_position.getX();
-			last_y = mouse_position.getY();
+			last_x = mouse_position.x;
+			last_y = mouse_position.y;
 			mouse_first_in = false;
 		}
 		//std::cout << mouse_position.getX()  <<  "		"  << mouse_position.getY() << std::endl;
-		GLfloat x_offset = mouse_position.getX() - last_x;
-		GLfloat y_offset = mouse_position.getY() - last_y;
-		last_x = mouse_position.getX();
-		last_y = mouse_position.getY();
+		GLfloat x_offset = mouse_position.x - last_x;
+		GLfloat y_offset = mouse_position.y - last_y;
+		last_x = mouse_position.x;
+		last_y = mouse_position.y;
 
 		camera.updateMouse(x_offset, y_offset);
 	}
@@ -184,6 +184,7 @@ GLuint Scene::loadImageToTexture(const char* image_path)
 	img.load(image_path);
 	img.convertTo32Bits();
 
+	img.flipVertical();
 	std::cout << img.getWidth() << " " << img.getHeight() << std::endl;
 	std::cout << img.isGrayscale() << std::endl;
 	std::cout << img.getBitsPerPixel() << std::endl;

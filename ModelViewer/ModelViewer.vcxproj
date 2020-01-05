@@ -154,7 +154,6 @@
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="TextRendering.h" />
     <ClInclude Include="Scene.h" />
-    <ClInclude Include="Vector2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ForShader.cpp" />
