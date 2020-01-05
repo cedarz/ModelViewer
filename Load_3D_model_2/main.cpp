@@ -7,7 +7,6 @@
 const int FPS = 60;
 const int LOOP_TIME = 1000 / FPS; // = 16 milisec // 1000 millisec == 1 sec
 
-// framebuffer - част?па?ти видеокарты ?которо?хранятся пиксел?которы?отобра?тся на мониторе.
 
 
 int main(int argc, char* argv[])

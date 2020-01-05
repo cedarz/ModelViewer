@@ -163,19 +163,9 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 	vector<Texture> textures;
 	vector<VertexBoneData> bones_id_weights_for_each_vertex;
 
-	//size � resize - ����� �� ������ � �������� ������ ��������� �������
-	//capacity � reserve - �� ������ � �����.
-	//size - ������ ���������� ��������� � �������
-	//resize - ������� ���������� ��������� � �������
-	//capacity - ������ ��� ������� ��������� �������� �����
-	//reserve - ���������� �����
+	vertices.reserve(mesh->mNumVertices); 
+	indices.reserve(mesh->mNumVertices); 
 
-	vertices.reserve(mesh->mNumVertices); // ������ ������� ����� ��� ������������� !!! ��������� �������
-	indices.reserve(mesh->mNumVertices); // ������ ���� ����� ����� vector.push_back(i);
-
-	// .resize(n) == ����� ������ ������� � �������������� !!!! ��� ����������� ��������� ���� ������ ���� ������ 
-	// ������ � �� processMesh(....) ����� ����� ��������� ��() �� ��������� �������
-	// ������� ��� �������� ���� ���������������� ����� ( ��� ����� �� ������� �������� vector.push_back(i); ����� �������������� �������� )
 	bones_id_weights_for_each_vertex.resize(mesh->mNumVertices);
 
 	//vertices
@@ -220,9 +210,9 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 	//indices
 	for (uint i = 0; i < mesh->mNumFaces; i++)
 	{
-		aiFace face = mesh->mFaces[i]; // ������� ������ � ����� ��������� ������� �� ���������� �����
-		indices.push_back(face.mIndices[0]); // ������� ������� � ���� ����� � �������� ������� ����� ������� 
-		indices.push_back(face.mIndices[1]); // �� ����� ����� (� ����� ����� ������� � �� ������� �������� � ������)
+		aiFace face = mesh->mFaces[i]; 
+		indices.push_back(face.mIndices[0]);
+		indices.push_back(face.mIndices[1]); 
 		indices.push_back(face.mIndices[2]);
 	}
 
@@ -235,24 +225,24 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 		bool exist = false;
 		for (int i = 0; (i < textures.size()) && (diffuse_maps.size() != 0); i++)
 		{
-			if (textures[i].path ==  diffuse_maps[0].path) // ������ ���� �������� 1 �������� ������� � 1 ������� � ����� ����
+			if (textures[i].path ==  diffuse_maps[0].path)
 			{
 				exist = true;
 			}
 		}
-		if(!exist && diffuse_maps.size() != 0) textures.push_back(diffuse_maps[0]); //������ �������� �� 1 �������� !!!
+		if(!exist && diffuse_maps.size() != 0) textures.push_back(diffuse_maps[0]);
 		//textures.insert(textures.end(), diffuse_maps.begin(), diffuse_maps.end());
 
 		vector<Texture> specular_maps = LoadMaterialTexture(material, aiTextureType_SPECULAR, "texture_specular");
 		exist = false;
 		for (int i = 0; (i < textures.size()) && (specular_maps.size() != 0); i++)
 		{
-			if (textures[i].path == specular_maps[0].path) // ������ ���� �������� 1 �������� ������� � 1 ������� � ����� ����
+			if (textures[i].path == specular_maps[0].path) 
 			{
 				exist = true;
 			}
 		}
-		if (!exist  && specular_maps.size() != 0) textures.push_back(specular_maps[0]); //������ �������� �� 1 �������� !!!
+		if (!exist  && specular_maps.size() != 0) textures.push_back(specular_maps[0]); 
 		//textures.insert(textures.end(), specular_maps.begin(), specular_maps.end());
 
 	}
@@ -265,7 +255,7 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 
 		cout << mesh->mBones[i]->mName.data << endl;
 
-		if (m_bone_mapping.find(bone_name) == m_bone_mapping.end()) // ��������� ��� �� � ������� ��������
+		if (m_bone_mapping.find(bone_name) == m_bone_mapping.end())
 		{
 			// Allocate an index for a new bone
 			bone_index = m_num_bones;
@@ -284,11 +274,10 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 
 		for (uint j = 0; j < mesh->mBones[i]->mNumWeights; j++)
 		{
-			uint vertex_id = mesh->mBones[i]->mWeights[j].mVertexId; // �� ������� �� ������ ����� �������� �����
+			uint vertex_id = mesh->mBones[i]->mWeights[j].mVertexId; 
 			float weight = mesh->mBones[i]->mWeights[j].mWeight;
-			bones_id_weights_for_each_vertex[vertex_id].addBoneData(bone_index, weight); // � ������ ������� ����� ����� � �� ���
+			bones_id_weights_for_each_vertex[vertex_id].addBoneData(bone_index, weight);
 
-			// ������ ������� vertex_id �� ������ ����� � �������� bone_index  ����� ��� weight
 			//cout << " vertex_id: " << vertex_id << "	bone_index: " << bone_index << "		weight: " << weight << endl;
 		}
 	} 
@@ -320,12 +309,11 @@ vector<Texture> Model::LoadMaterialTexture(aiMaterial* mat, aiTextureType type, 
 
 uint Model::findPosition(float p_animation_time, const aiNodeAnim* p_node_anim)
 {
-	// ����� ���� ������� ����� ����� ����� ������� ���������� ����� ������ ��������
-	for (uint i = 0; i < p_node_anim->mNumPositionKeys - 1; i++) // �������� ����� ��������
+	for (uint i = 0; i < p_node_anim->mNumPositionKeys - 1; i++) 
 	{
-		if (p_animation_time < (float)p_node_anim->mPositionKeys[i + 1].mTime) // �������� �� �������� ��������� !!!
+		if (p_animation_time < (float)p_node_anim->mPositionKeys[i + 1].mTime) 
 		{
-			return i; // �� ������� ������ �������� !!!!!!!!!!!!!!!!!! ����������������������������
+			return i;
 		}
 	}
 
@@ -335,12 +323,11 @@ uint Model::findPosition(float p_animation_time, const aiNodeAnim* p_node_anim)
 
 uint Model::findRotation(float p_animation_time, const aiNodeAnim* p_node_anim)
 {
-	// ����� ���� ������� ����� ����� ����� ������� ���������� ����� ������ ��������
-	for (uint i = 0; i < p_node_anim->mNumRotationKeys - 1; i++) // �������� ����� ��������
+	for (uint i = 0; i < p_node_anim->mNumRotationKeys - 1; i++) 
 	{
-		if (p_animation_time < (float)p_node_anim->mRotationKeys[i + 1].mTime) // �������� �� �������� ��������� !!!
+		if (p_animation_time < (float)p_node_anim->mRotationKeys[i + 1].mTime) 
 		{
-			return i; // �� ������� ������ �������� !!!!!!!!!!!!!!!!!! ����������������������������
+			return i;
 		}
 	}
 
@@ -350,12 +337,11 @@ uint Model::findRotation(float p_animation_time, const aiNodeAnim* p_node_anim)
 
 uint Model::findScaling(float p_animation_time, const aiNodeAnim* p_node_anim)
 {
-	// ����� ���� ������� ����� ����� ����� ������� ���������� ����� ������ ��������
-	for (uint i = 0; i < p_node_anim->mNumScalingKeys - 1; i++) // �������� ����� ��������
+	for (uint i = 0; i < p_node_anim->mNumScalingKeys - 1; i++)
 	{
- 		if (p_animation_time < (float)p_node_anim->mScalingKeys[i + 1].mTime) // �������� �� �������� ��������� !!!
+ 		if (p_animation_time < (float)p_node_anim->mScalingKeys[i + 1].mTime) 
 		{
-			return i; // �� ������� ������ �������� !!!!!!!!!!!!!!!!!! ����������������������������
+			return i;
 		}
 	}
 
@@ -365,17 +351,17 @@ uint Model::findScaling(float p_animation_time, const aiNodeAnim* p_node_anim)
 
 aiVector3D Model::calcInterpolatedPosition(float p_animation_time, const aiNodeAnim* p_node_anim)
 {
-	if (p_node_anim->mNumPositionKeys == 1) // Keys ��� ������� �����
+	if (p_node_anim->mNumPositionKeys == 1)
 	{
 		return p_node_anim->mPositionKeys[0].mValue;
 	}
 
-	uint position_index = findPosition(p_animation_time, p_node_anim); // ������ ������ �������� ����� ������� ������
-	uint next_position_index = position_index + 1; // ������ ��������� �������� �����
+	uint position_index = findPosition(p_animation_time, p_node_anim); 
+	uint next_position_index = position_index + 1; 
 	assert(next_position_index < p_node_anim->mNumPositionKeys);
-	// ���� ����� �������
+	
 	float delta_time = (float)(p_node_anim->mPositionKeys[next_position_index].mTime - p_node_anim->mPositionKeys[position_index].mTime);
-	// ������ = (���� ������� ������ �� ������ �������� ��������� �����) / �� ���� ����� �������
+
 	float factor = (p_animation_time - (float)p_node_anim->mPositionKeys[position_index].mTime) / delta_time;
 	assert(factor >= 0.0f && factor <= 1.0f);
 	aiVector3D start = p_node_anim->mPositionKeys[position_index].mValue;
@@ -387,17 +373,17 @@ aiVector3D Model::calcInterpolatedPosition(float p_animation_time, const aiNodeA
 
 aiQuaternion Model::calcInterpolatedRotation(float p_animation_time, const aiNodeAnim* p_node_anim)
 {
-	if (p_node_anim->mNumRotationKeys == 1) // Keys ��� ������� �����
+	if (p_node_anim->mNumRotationKeys == 1) 
 	{
 		return p_node_anim->mRotationKeys[0].mValue;
 	}
 
-	uint rotation_index = findRotation(p_animation_time, p_node_anim); // ������ ������ �������� ����� ������� ������
-	uint next_rotation_index = rotation_index + 1; // ������ ��������� �������� �����
+	uint rotation_index = findRotation(p_animation_time, p_node_anim); 
+	uint next_rotation_index = rotation_index + 1; 
 	assert(next_rotation_index < p_node_anim->mNumRotationKeys);
-	// ���� ����� �������
+
 	float delta_time = (float)(p_node_anim->mRotationKeys[next_rotation_index].mTime - p_node_anim->mRotationKeys[rotation_index].mTime);
-	// ������ = (���� ������� ������ �� ������ �������� ��������� �����) / �� ���� ����� �������
+
 	float factor = (p_animation_time - (float)p_node_anim->mRotationKeys[rotation_index].mTime) / delta_time;
 	
 	//cout << "p_node_anim->mRotationKeys[rotation_index].mTime: " << p_node_anim->mRotationKeys[rotation_index].mTime << endl;
@@ -416,17 +402,17 @@ aiQuaternion Model::calcInterpolatedRotation(float p_animation_time, const aiNod
 
 aiVector3D Model::calcInterpolatedScaling(float p_animation_time, const aiNodeAnim* p_node_anim)
 {
-	if (p_node_anim->mNumScalingKeys == 1) // Keys ��� ������� �����
+	if (p_node_anim->mNumScalingKeys == 1) 
 	{
 		return p_node_anim->mScalingKeys[0].mValue;
 	}
 
-	uint scaling_index = findScaling(p_animation_time, p_node_anim); // ������ ������ �������� ����� ������� ������
-	uint next_scaling_index = scaling_index + 1; // ������ ��������� �������� �����
+	uint scaling_index = findScaling(p_animation_time, p_node_anim); 
+	uint next_scaling_index = scaling_index + 1; 
 	assert(next_scaling_index < p_node_anim->mNumScalingKeys);
-	// ���� ����� �������
+
 	float delta_time = (float)(p_node_anim->mScalingKeys[next_scaling_index].mTime - p_node_anim->mScalingKeys[scaling_index].mTime);
-	// ������ = (���� ������� ������ �� ������ �������� ��������� �����) / �� ���� ����� �������
+
 	float  factor = (p_animation_time - (float)p_node_anim->mScalingKeys[scaling_index].mTime) / delta_time;
 	assert(factor >= 0.0f && factor <= 1.0f);
 	aiVector3D start = p_node_anim->mScalingKeys[scaling_index].mValue;
@@ -442,10 +428,10 @@ const aiNodeAnim * Model::findNodeAnim(const aiAnimation * p_animation, const st
 	// numChannels == numBones
 	for (uint i = 0; i < p_animation->mNumChannels; i++)
 	{
-		const aiNodeAnim* node_anim = p_animation->mChannels[i]; // ��������� ������� ������ node
+		const aiNodeAnim* node_anim = p_animation->mChannels[i]; 
 		if (string(node_anim->mNodeName.data) == p_node_name)
 		{
-			return node_anim;// ���� ����� �������� �� ������� ����� (� ������� ����������� node) ������������ ���� node_anim
+			return node_anim;
 		}
 	}
 
@@ -457,11 +443,11 @@ void Model::readNodeHierarchy(float p_animation_time, const aiNode* p_node, cons
 
 	string node_name(p_node->mName.data);
 
-	//������� node, �� ������� ������������ �������, ������������� �������� ���� ������(aiNodeAnim).
+
 	const aiAnimation* animation = scene->mAnimations[0];
 	aiMatrix4x4 node_transform = p_node->mTransformation;
 
-	const aiNodeAnim* node_anim = findNodeAnim(animation, node_name); // ����� ������� �� ����� ����
+	const aiNodeAnim* node_anim = findNodeAnim(animation, node_name); 
 	
 	if (node_anim)
 	{
@@ -498,7 +484,6 @@ void Model::readNodeHierarchy(float p_animation_time, const aiNode* p_node, cons
 
 	aiMatrix4x4 global_transform = parent_transform * node_transform;
 
-	// ���� � node �� �������� ����������� bone, �� �� node ������ ��������� � ������ bone !!!
 	if (m_bone_mapping.find(node_name) != m_bone_mapping.end()) // true if node_name exist in bone_mapping
 	{
 		uint bone_index = m_bone_mapping[node_name];
@@ -517,8 +502,8 @@ void Model::boneTransform(double time_in_sec, vector<aiMatrix4x4>& transforms)
 	aiMatrix4x4 identity_matrix; // = mat4(1.0f);
 
 	double time_in_ticks = time_in_sec * ticks_per_second;
-	float animation_time = fmod(time_in_ticks, scene->mAnimations[0]->mDuration); //������� �� ����� (������� �� ������)
-	// animation_time - ���� ������� ������ � ���� ������ �� ������ �������� (�� ������� �������� ����� � �������� )
+	float animation_time = fmod(time_in_ticks, scene->mAnimations[0]->mDuration); 
+	// animation_time
 
 	readNodeHierarchy(animation_time, scene->mRootNode, identity_matrix);
 	

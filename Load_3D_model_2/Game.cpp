@@ -95,13 +95,8 @@ void Game::init()
 		cout << "Mixer NOT init !!" << endl;
 	Mix_VolumeMusic(1);
 
-	glViewport(0, 0, screen_width, screen_height); // задать прямоугольник окна
-	glEnable(GL_DEPTH_TEST); // включаем тест глубин?
-
-	//glMatrixMode(GL_PROJECTION); режи?текуще?матриц?( GL_MODELVIEW- переходи??трехмерный режи?по умолчани?)
-	//glLoadIdentity(); // replace the current matrix(modelview ) with the user matrix (GL_PROJECTION)
-	//glOrtho(0.0, 920.0, 900.0, 0.0, -1.0, 1.0);  - типа 2?экра?становит?
-	//glMatrixMode(GL_MODELVIEW);
+	glViewport(0, 0, screen_width, screen_height);
+	glEnable(GL_DEPTH_TEST); 
 
 	int buffer;
 	SDL_GL_GetAttribute(SDL_GL_DOUBLEBUFFER, &buffer);
@@ -123,15 +118,14 @@ void Game::update()
 
 void Game::render()
 {
-	// очистить вс?возможны?буффер?
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
 	triangle.render();
 
 
-	glFlush(); // опустошени?буферо? отрисовк?предыдущих команд // не ждет завершен?
-	//glFinish(); //ждет пока вс?предыдущие команд?не буду?отрисованы
-	SDL_GL_SwapWindow(window);//отобразить только чт?нарисованный кадр на экране.
+	glFlush();
+	//glFinish(); 
+	SDL_GL_SwapWindow(window);
 	 
 }
 
