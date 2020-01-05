@@ -76,5 +76,4 @@ private:
 	//inititalize buffers
 	void SetupMesh();
 };
-
 #endif

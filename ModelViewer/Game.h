@@ -1,15 +1,12 @@
 #ifndef GAME_H
 #define GAME_H
-
 #include "Triangle.h"
 #include <SDL/SDL.h>
-
 #include <vector>
 
 class Game
 {
 public:
-
 	void init();
 	void render();
 	void handleEvents();
@@ -19,7 +16,6 @@ public:
 
 	int screen_width;
 	int screen_height;
-
 
 	bool isRunning() { return running; }
 	SDL_Window* getWindow() const { return window; }
@@ -38,9 +34,6 @@ private:
 	SDL_GLContext glcontext = 0;
 
 	Triangle triangle;
-
 	bool running;
-
 };
 #endif // !GAME_H
-

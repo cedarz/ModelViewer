@@ -6,11 +6,11 @@
 #include <glad/glad.h>
 
 #include <iostream>
-#include <assert.h>
+#include <cassert>
 
 Game::Game()
 {
-	std::cout << "konstructor Game()" << std::endl;
+	std::cout << "Constructor Game()" << std::endl;
 
 	screen_width = 1024;
 	screen_height = 768;
@@ -24,23 +24,7 @@ Game::~Game()
 
 }
 
-void Game::init()
-{
-	assert(2 < 5);
-
-	/*
-	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1); 
-	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
-	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
-	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
-	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
-	SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
-	*/
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
-
-
+void Game::init() {
 	// initialize SDL
 	if (SDL_Init(SDL_INIT_EVERYTHING) >= 0)
 	{
@@ -48,6 +32,9 @@ void Game::init()
 		SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 		SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1); // on antialiasing sdl
 		SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4); //subsamples for each pixel
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
 
 		SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1); // set to 1 to require hardware acceleration
 
@@ -75,13 +62,8 @@ void Game::init()
 		std::cout << "window create error " << std::endl;
 		return; // sdl could not initialize
 	}
-	SDL_SetWindowFullscreen(window, 0); // переключат?оконны?/ полноэкранны?режи??обратн?бе?потери контекст?GL 
+	SDL_SetWindowFullscreen(window, 0); 
 
-	//glewExperimental = GL_TRUE; //вс?расширен? ?действительным?точкам?вход?буду?выставлены.
-	//if (glewInit())// if all is init return 0 !! if not init return 1 and if() run
-	//{
-	//	std::cout << "glew init error !" << std::endl;
-	//}
 	if (!gladLoadGL()) {
 		printf("Something went wrong!\n");
 		exit(-1);
@@ -103,7 +85,6 @@ void Game::init()
 	printf("SDL_GL_DOUBLEBUFFER: %d \n", buffer);
 
 	triangle.init();
-
 }
 
 void Game::handleEvents()
@@ -122,11 +103,9 @@ void Game::render()
 
 	triangle.render();
 
-
 	glFlush();
 	//glFinish(); 
 	SDL_GL_SwapWindow(window);
-	 
 }
 
 void Game::playSound()
@@ -140,5 +119,4 @@ void Game::clean()
 	running = false;
 	SDL_DestroyWindow(window);
 	SDL_Quit();
-
 }

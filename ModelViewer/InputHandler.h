@@ -1,9 +1,7 @@
 #ifndef INPUT_HANDLER_H
 #define INPUT_HANDLER_H
 
-
 #include "Vector2D.h"
-
 #include <iostream>
 #include <vector>
 #include <SDL/SDL.h>
@@ -63,4 +61,3 @@ private:
 };
 
 #endif // INPUT_HANDLER_H
-
