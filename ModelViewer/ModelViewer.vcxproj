@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D8C317AC-57D7-45E5-A682-FFCC240071FF}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Load_3D_model_2</RootNamespace>
+    <RootNamespace>ModelViewer</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

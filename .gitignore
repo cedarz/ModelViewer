@@ -4,8 +4,13 @@
 *.a
 *~
 .vs/
+*.pdb
+*.tlog
+*.obj
+*.log
+*.idb
+*.ilk
+*.exe
 
-Load_3D_model_2/x64/
-x64/Debug/Load_3D_model_2.exe
-x64/Debug/Load_3D_model_2.ilk
-x64/Debug/Load_3D_model_2.pdb
+ModelViewer/x64/
+
