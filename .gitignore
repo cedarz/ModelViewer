@@ -11,6 +11,7 @@
 *.idb
 *.ilk
 *.exe
+/build
 
 ModelViewer/x64/
 
