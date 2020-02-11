@@ -10,6 +10,7 @@ file(GLOB_RECURSE PTSOURCES "ModelViewer/*.cpp" "ModelViewer/*.c" "ModelViewer/*
 add_executable(${PROJECT} WIN32 ${PTSOURCES})
 
 set_property (DIRECTORY PROPERTY VS_STARTUP_PROJECT ${PROJECT})
+set_target_properties(${PROJECT} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/Debug)
 
 if(WIN32)
    set_target_properties(${PROJECT} PROPERTIES LINK_FLAGS_RELEASE "/SUBSYSTEM:CONSOLE")
@@ -27,11 +28,18 @@ target_link_libraries(${PROJECT} $<$<CONFIG:Debug>:${CMAKE_SOURCE_DIR}/Libs/Debu
 # copy dlls
 add_custom_command(
 	TARGET ${PROJECT} POST_BUILD
-	COMMAND ${CMAKE_COMMAND} -E copy_if_different $<$<CONFIG:Debug>:${CMAKE_CURRENT_SOURCE_DIR}/Dlls/assimp-vc140-mt.dll> $<TARGET_FILE_DIR:${PROJECT}>
-	COMMAND ${CMAKE_COMMAND} -E copy_if_different $<$<CONFIG:Debug>:${CMAKE_CURRENT_SOURCE_DIR}/Dlls/freeglutd.dll> $<TARGET_FILE_DIR:${PROJECT}>
-	COMMAND ${CMAKE_COMMAND} -E copy_if_different $<$<CONFIG:Debug>:${CMAKE_CURRENT_SOURCE_DIR}/Dlls/FreeImaged.dll> $<TARGET_FILE_DIR:${PROJECT}>
-	COMMAND ${CMAKE_COMMAND} -E copy_if_different $<$<CONFIG:Debug>:${CMAKE_CURRENT_SOURCE_DIR}/Dlls/FreeImagePlusd.dll> $<TARGET_FILE_DIR:${PROJECT}>
-	COMMAND ${CMAKE_COMMAND} -E copy_if_different $<$<CONFIG:Debug>:${CMAKE_CURRENT_SOURCE_DIR}/Dlls/SDL2.dll> $<TARGET_FILE_DIR:${PROJECT}>
-	COMMAND ${CMAKE_COMMAND} -E copy_if_different $<$<CONFIG:Debug>:${CMAKE_CURRENT_SOURCE_DIR}/Dlls/SDL2_mixer.dll> $<TARGET_FILE_DIR:${PROJECT}>
-	COMMAND ${CMAKE_COMMAND} -E copy_if_different $<$<CONFIG:Debug>:${CMAKE_CURRENT_SOURCE_DIR}/Dlls/SDL2main.dll> $<TARGET_FILE_DIR:${PROJECT}>		
+	COMMAND ${CMAKE_COMMAND} -E copy_if_different $<$<CONFIG:Debug>:${CMAKE_CURRENT_SOURCE_DIR}/Dlls/Debug/assimp-vc140-mt.dll> $<TARGET_FILE_DIR:${PROJECT}>
+	COMMAND ${CMAKE_COMMAND} -E copy_if_different $<$<CONFIG:Debug>:${CMAKE_CURRENT_SOURCE_DIR}/Dlls/Debug/smpeg2.dll> $<TARGET_FILE_DIR:${PROJECT}>
+	COMMAND ${CMAKE_COMMAND} -E copy_if_different $<$<CONFIG:Debug>:${CMAKE_CURRENT_SOURCE_DIR}/Dlls/Debug/FreeImaged.dll> $<TARGET_FILE_DIR:${PROJECT}>
+	COMMAND ${CMAKE_COMMAND} -E copy_if_different $<$<CONFIG:Debug>:${CMAKE_CURRENT_SOURCE_DIR}/Dlls/Debug/FreeImagePlusd.dll> $<TARGET_FILE_DIR:${PROJECT}>
+	COMMAND ${CMAKE_COMMAND} -E copy_if_different $<$<CONFIG:Debug>:${CMAKE_CURRENT_SOURCE_DIR}/Dlls/Debug/SDL2.dll> $<TARGET_FILE_DIR:${PROJECT}>
+	COMMAND ${CMAKE_COMMAND} -E copy_if_different $<$<CONFIG:Debug>:${CMAKE_CURRENT_SOURCE_DIR}/Dlls/Debug/SDL2_mixer.dll> $<TARGET_FILE_DIR:${PROJECT}>
 )
+
+# copy resource
+add_custom_command(
+	TARGET ${PROJECT} POST_BUILD
+	COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/Resource/"  $<TARGET_FILE_DIR:${PROJECT}>
+)
+
+
