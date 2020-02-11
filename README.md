@@ -11,5 +11,5 @@ Instruction:
   3. W S A D SPACE   -  move
 
 TODO:
-  -[]cmakelist.txt
-  -[]Debug/Release files on win
+  - [ ] cmakelist.txt
+  - [ ] Debug/Release files on win
